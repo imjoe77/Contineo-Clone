@@ -1,14 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const attendanceSchema = new Schema({
-    name: { type: String, required: true },
-    usn: { type: String, required: true },
-    course: {type: String,required: true},
-    paymentId: { type: String },
-    markeddat: { type: Date, default: Date.now },
-    done: { type: Boolean, default: false },
-});
 
-const Attendance= mongoose.models.Payment || model('Payment', attendanceSchema);
+  studentId: {type: mongoose.Schema.Types.ObjectId,ref: "User",required: true},
+  date: {  type: Date,default: Date.now},
+  status: {  type: String, enum: ["present", "absent"],required: true}
+
+}, { timestamps: true });
+
+const Attendance = mongoose.models.Attendance || model("Attendance", attendanceSchema);
 export default Attendance;
